@@ -1,4 +1,11 @@
-class Application_Controller < Sinatra::Base
+require './config/environment'
+class ApplicationController < Sinatra::Base
 
+  get '/' do
+    erb :index
+  end
 
+  get '/info' do
+    erb :info
+  end
 end
