@@ -40,7 +40,13 @@ end
     erb :'/book/edit'
   end
 
-  patch '/books/:id' do
+  put '/books/:id' do
 
+    erb :'/book/show'
+  end
+
+  delete '/books/:id' do
+
+    redirect '/book/index'
   end
 end
