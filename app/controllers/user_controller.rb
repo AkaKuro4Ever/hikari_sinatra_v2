@@ -11,7 +11,7 @@ class UserController < Sinatra::Base
 
   end
 
-  post '/' do
+  post '/login' do
 
   end
 
