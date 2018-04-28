@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<%#Renders a view of ALL books%>
+<html>
+  <head>
+    <%@title = The Book Collection%>
+  </head>
+  <body>
+    <%@books.each_with_index do |book, i|%>
+      <h3><%=i+1%>. <%=book.name%></h3>
+      Author: <%book.author.name%>
+      Genre: <%book.genre.name%>
+    <%end%>
+  </body>
+</html>

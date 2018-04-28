@@ -8,6 +8,12 @@ end
     erb :'/book/new'
   end
 
+  get '/books' do
+
+    @books = Book.all
+    erb :'/book/index'
+  end
+
   post '/books' do
 
     @book = Book.new(title: params[:title])
@@ -25,13 +31,9 @@ end
     erb :'book/show'
   end
 
-  get '/books' do
-
-    erb :'/book/index'
-  end
-
   get '/books/:id' do
 
+    @book = Book.find_by(id: params[:id])
     erb :'/book/show'
   end
 
