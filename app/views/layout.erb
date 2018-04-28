@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    <%if @title%>
+      <%=@title%>
+    <%else%>
+      Hikari
+    <%end%>
+    </title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/style.css">-->
+  </head>
+  <body>
+    <%=yield%>
+    <!--<div class="container">
+		      <h1>I love cats</h1>
+		      <img src="https://s3.amazonaws.com/after-school-assets/cat-typing.gif">-->
+    <!--This yield is where the other page's content will be loaded. Whenever a page is loaded, it will look for a 'layout.erb' page. If it exists, it'll load that erb content around the specified file in the route.-->
+  </body>
+</html>

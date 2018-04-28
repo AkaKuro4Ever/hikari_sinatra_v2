@@ -1,7 +1,7 @@
 #We now have access to all of the gems that we need, but we still need to setup a connection to our database
 ENV['SINATRA_ENV'] ||= "development"
 require 'bundler/setup'
-
+require 'pry'
 Bundler.require(:default, ENV['SINATRA_ENV'])
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",
