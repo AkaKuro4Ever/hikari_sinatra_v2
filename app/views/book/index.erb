@@ -2,13 +2,17 @@
 <%#Renders a view of ALL books%>
 <html>
   <head>
-    <%@title = The Book Collection%>
+    <%@title = "The Book Collection"%>
   </head>
   <body>
     <%@books.each_with_index do |book, i|%>
-      <h3><%=i+1%>. <%=book.name%></h3>
+      <h3><%=i+1%>. <%=book.title%></h3>
+      <%if book.author !=nil%>
       Author: <%book.author.name%>
+      <%end%>
+      <%if book.genre !=nil%>
       Genre: <%book.genre.name%>
+      <%end%>
     <%end%>
   </body>
 </html>
