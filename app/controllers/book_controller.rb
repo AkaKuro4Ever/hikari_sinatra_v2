@@ -4,11 +4,11 @@ configure do
   set :views, Proc.new { File.join(root, "../views/") }
 end
 
-  get '/book/new' do
-    erb :new
+  get '/books/new' do
+    erb :'/book/new'
   end
 
-  post '/book' do
+  post '/books' do
 
     @book = Book.new(title: params[:title])
     if !Author.all.include?(name: params[:author])
@@ -22,6 +22,25 @@ end
     @author.save
     @genre.save
     @book.save
-    erb :'book/book'
+    erb :'book/show'
+  end
+
+  get '/books' do
+
+    erb :'/book/index'
+  end
+
+  get '/books/:id' do
+
+    erb :'/book/show'
+  end
+
+  get '/books/:id/edit' do
+
+    erb :'/book/edit'
+  end
+
+  patch '/books/:id' do
+
   end
 end
