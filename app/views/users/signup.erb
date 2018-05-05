@@ -1,0 +1,14 @@
+<%@title = "Signup Page"%>
+
+<h1>Signup Page</h1>
+<br>
+<%=@warning%>
+<form action="/signup" method="post">
+  <label>Username: </label> <input type="text" name="username">
+  <br>
+  <label>Email</label> <input type="text" name="email">
+  <br>
+  <label>Password: </label> <input type="text" name="password">
+  <br>
+  <button type="submit" value="submit">Submit</button>
+</form>
