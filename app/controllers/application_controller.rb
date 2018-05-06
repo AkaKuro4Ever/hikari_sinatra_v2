@@ -6,6 +6,7 @@ configure do
 end
 
   get '/' do
-    erb :index
+
+    DO SOMETHING GOD
   end
 end
