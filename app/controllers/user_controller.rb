@@ -8,11 +8,6 @@ class UserController < Sinatra::Base
 
   #The configure block above is a part of built-in settings that control whether features are enabled or not. In this case, we're enabling the sessions feature.
 
-  get '/' do
-
-    erb :index
-  end
-
   get '/login' do
 
     erb :'/users/login'
