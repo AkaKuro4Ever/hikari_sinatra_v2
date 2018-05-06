@@ -1,9 +1,8 @@
-<!-- # <%if @warning == nil%>
-#  <%=@user.username%>
-# <%else%>
-#  <%=@warning%>
-# <%end%> -->
+<% if session[:user_id].nil? %>
+  Sorry, you are not logged in to see this webpage.
+<%else%>
+  Welcome, <%=@user.username%>!
+  Good bye now.
 
-Welcome, <%=@user.username%>!
-<%params.to_s%>
-Good bye now.
+  <a href="/users/logout">Logout</a>
+<%end%>

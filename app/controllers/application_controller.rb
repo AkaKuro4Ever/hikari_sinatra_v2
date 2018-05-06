@@ -7,6 +7,6 @@ end
 
   get '/' do
 
-    DO SOMETHING GOD
+    erb :index
   end
 end

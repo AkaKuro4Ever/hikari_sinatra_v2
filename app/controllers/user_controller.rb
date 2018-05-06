@@ -19,20 +19,36 @@ class UserController < Sinatra::Base
   end
 
   post '/signup' do
-    if true
-      erb :'/users/signup'
-    end
-    # if @user.authenticate etc.
-    binding.pry
-    @user = User.new(email: params[:email], username: params[:username], password: params[:password])
-    @user.save
-    @user = User.find_by(email: params[:email])
 
-    redirect '/users/show'
+    # if @user.authenticate etc.
+    # binding.pry
+    # { |value| value.empty? }
+    if params.values.any?(&:empty?)
+      @message = "All fields must be filled in to create a user account"
+      erb :'users/signup'
+    else
+      @user = User.new(email: params[:email], username: params[:username], password: params[:password])
+      @user.save
+    redirect "/users/#{@user.id}"
+    end
   end
 
   post '/login' do
 
+    @user = User.find_by(email: params[:email], password: params[:password])
+    session[:user_id] = @user.id
+    erb :'/users/show'
+  end
+
+  get '/users/logout' do
+    session.clear
+
+    redirect "/"
+  end
+
+  get '/users/:id' do
+
+    @user = User.find_by(id: params[:id])
     erb :'/users/show'
   end
 
