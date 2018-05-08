@@ -20,27 +20,33 @@ class UserController < Sinatra::Base
 
   post '/signup' do
 
-    # if @user.authenticate etc.
-    # binding.pry
-    # { |value| value.empty? }
-    if params.values.any?(&:empty?)
-      @message = "All fields must be filled in to create a user account"
-      erb :'users/signup'
+    # The blow if conditional is uneeded because we have #has_secure_password
+    # if params.values.any?(&:empty?) or { |value| value.empty? }
+    @user = User.new(email: params[:email], username: params[:username], password: params[:password])
+    # Because our user has has_secure_password, we won't be able to save this to the database unless our user filled out the password field. Calling user.save will return false if the user can't be persisted.
+    #MUST DO VALIDATION FOR UNIQUE PASSWORDS, EMAILS, USERNAMES
+    if @user.save
+      session[:user_id] = @user.id
+      redirect "/users/#{@user.id}"
     else
-      @user = User.new(email: params[:email], username: params[:username], password: params[:password])
-      @user.save
-    redirect "/users/#{@user.id}"
+      @message = "All fields must be filled in to create a user account" #CHANGE TO FLASH LATER
+      erb :'users/signup'
     end
   end
 
   post '/login' do
 
-    @user = User.find_by(email: params[:email], password: params[:password])
-    session[:user_id] = @user.id
-    erb :'/users/show'
+    @user = User.find_by(email: params[:email])
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect "/users/#{@user.id}"
+    else
+      @message = "Sorry, we couldn't find this account. Please try again." #CHANGE TO FLASH MESSAGE LATER
+      erb :'/users/login'
+    end
   end
 
-  get '/users/logout' do
+  get '/logout' do
     session.clear
 
     redirect "/"
