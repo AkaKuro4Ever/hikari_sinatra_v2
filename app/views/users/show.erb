@@ -1,8 +1,8 @@
-<% if session[:user_id].nil? %>
-  Sorry, you are not logged in to see this webpage.
-<%else%>
-  Welcome, <%=@user.username%>!
+  Welcome, <%=@user.username.capitalize%>!
   Good bye now.
+  <a href="/logout">Logout</a>
+  <!--You cannot use the below b/c the session has been cleared of user_id field. Redirecting there is the same as refreshing the page and simply going to that location. Think about more when you review the 2 helper methods.-->
 
-  <a href="/users/logout">Logout</a>
-<%end%>
+  <!-- if session[:user_id].nil?
+    Sorry, you are not logged in to see this webpage.
+  else -->

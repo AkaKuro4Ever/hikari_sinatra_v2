@@ -20,17 +20,21 @@ class UserController < Sinatra::Base
 
   post '/signup' do
 
-    # The blow if conditional is uneeded because we have #has_secure_password
-    # if params.values.any?(&:empty?) or { |value| value.empty? }
+    if params.values.any?(&:empty?)
+      #or { |value| value.empty? }
+      @message = "All fields must be filled in to create a user account" #CHANGE TO FLASH LATER
+      erb :'users/signup'
+    else
     @user = User.new(email: params[:email], username: params[:username], password: params[:password])
     # Because our user has has_secure_password, we won't be able to save this to the database unless our user filled out the password field. Calling user.save will return false if the user can't be persisted.
     #MUST DO VALIDATION FOR UNIQUE PASSWORDS, EMAILS, USERNAMES
-    if @user.save
-      session[:user_id] = @user.id
-      redirect "/users/#{@user.id}"
-    else
-      @message = "All fields must be filled in to create a user account" #CHANGE TO FLASH LATER
-      erb :'users/signup'
+      if @user.save
+        session[:user_id] = @user.id
+        redirect "users/#{@user.id}"
+      else
+        @message = "All fields must be filled in to create a user account" #CHANGE TO FLASH LATER
+        erb :'users/signup'
+      end
     end
   end
 
