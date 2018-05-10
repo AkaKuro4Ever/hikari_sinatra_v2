@@ -4,14 +4,23 @@ configure do
   set :views, Proc.new { File.join(root, "../views/") }
 end
 
-  get '/books/new' do
-    erb :'/book/new'
-  end
-
+  #READ
   get '/books' do
 
     @books = Book.all
     erb :'/book/index'
+  end
+
+  get '/books/:id' do
+
+    @book = Book.find_by(id: params[:id])
+    erb :'/book/show'
+  end
+
+  #CREATE
+
+  get '/books/new' do
+    erb :'/book/new'
   end
 
   post '/books' do
@@ -31,12 +40,7 @@ end
     erb :'book/show'
   end
 
-  get '/books/:id' do
-
-    @book = Book.find_by(id: params[:id])
-    erb :'/book/show'
-  end
-
+  #UPDATE
   get '/books/:id/edit' do
 
     @book = Book.find_by(id: params[:id])
@@ -64,6 +68,7 @@ end
     erb :'/book/show'
   end
 
+  #DELETE
   delete '/books/:id' do
 
     @book = Book.find_by(id: params[:id])

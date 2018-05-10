@@ -30,7 +30,7 @@ class UserController < Sinatra::Base
     #MUST DO VALIDATION FOR UNIQUE PASSWORDS, EMAILS, USERNAMES
       if @user.save
         session[:user_id] = @user.id
-        redirect "users/#{@user.id}"
+        redirect to "users/#{@user.id}"
       else
         @message = "All fields must be filled in to create a user account" #CHANGE TO FLASH LATER
         erb :'users/signup'
