@@ -1,9 +1,12 @@
 <h1> Adding a New Book </h1>
 
 <form method="post" action="/book">
-  <p>Title <input type="text" name="title"></p>
-  <p>Author <input type="text" name="author"></p>
-  <p>Genre <input type="text" name="genre"></p>
+  <p>Title <input type="text" name="book[title]"></p>
+  <p>Author <input type="text" name="book[author]"></p>
+  <p>Genre <input type="text" name="book[genre]"></p>
 
+  <%@authors.each do |author|%>
+		    <input type="checkbox" name="book[author_ids][]" value="<%=author.id%>" id="<%=author.id%>"><%=author.name%></input>
+		<%end%>
   <button type="submit" value="submit">Submit</button>
 </form>

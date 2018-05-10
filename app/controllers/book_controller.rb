@@ -4,6 +4,34 @@ configure do
   set :views, Proc.new { File.join(root, "../views/") }
 end
 
+  #CREATE
+
+  get '/books/new' do
+    @authors = Author.all
+    erb :'/book/new'
+  end
+
+  post '/books' do
+    author = params[:book][:author].strip.split.map(&:capitalize).join('')
+    genre = params[:book][:genre].strip.split.map(&:capitalize).join('')
+    @book = Book.new(title: params[:book][:title])
+    if !Author.all.find_by(name: author)
+      @author = Author.new(name: author)
+      @author.books << @book
+      @author.save
+    else
+      @author = Author.find_by(id: )
+      @author.books << @book
+    end
+    if !Genre.all.include?(name: params[:genre])
+      @genre = Genre.new(name: params[:genre])
+      @genre.books << @book
+      @genre.save
+    end
+    @book.save
+    erb :'book/show'
+  end
+
   #READ
   get '/books' do
 
@@ -15,29 +43,6 @@ end
 
     @book = Book.find_by(id: params[:id])
     erb :'/book/show'
-  end
-
-  #CREATE
-
-  get '/books/new' do
-    erb :'/book/new'
-  end
-
-  post '/books' do
-    binding.pry
-    @book = Book.new(title: params[:title])
-    if !Author.all.include?(name: params[:author])
-      @author = Author.new(name: params[:author])
-      @author.books << @book
-      @author.save
-    end
-    if !Genre.all.include?(name: params[:genre])
-      @genre = Genre.new(name: params[:genre])
-      @genre.books << @book
-      @genre.save
-    end
-    @book.save
-    erb :'book/show'
   end
 
   #UPDATE
