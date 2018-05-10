@@ -12,6 +12,7 @@ end
   end
 
   post '/books' do
+    binding.pry
     author = params[:book][:author].strip.split.map(&:capitalize).join('')
     genre = params[:book][:genre].strip.split.map(&:capitalize).join('')
     @book = Book.new(title: params[:book][:title])
@@ -19,9 +20,9 @@ end
       @author = Author.new(name: author)
       @author.books << @book
       @author.save
-    else
-      @author = Author.find_by(id: )
-      @author.books << @book
+    # else
+    #
+    #   @author.books << @book
     end
     if !Genre.all.include?(name: params[:genre])
       @genre = Genre.new(name: params[:genre])
