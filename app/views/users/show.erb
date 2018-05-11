@@ -17,7 +17,7 @@
     <%end%>
     <a href="/user/edit">Turn In Books</a>
     <a href="/logout">Logout</a>
-    <!--You cannot use the below b/c the session has been cleared of user_id field. Redirecting there is the same as refreshing the page and simply going to that location. Think about more when you review the 2 helper methods.-->
+    <!--You cannot use the below b/c the session has been cleared of user_id fvield. Redirecting there is the same as refreshing the page and simply going to that location. Think about more when you review the 2 helper methods.-->
   <%elsif logged_in?%>
   Sorry, you are not logged in to see this account. If you think it is your account, please log out and sign back in.
   <a href="/logout">Logout as <%=@user.name%></a>
