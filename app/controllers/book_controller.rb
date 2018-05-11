@@ -25,7 +25,7 @@ end
     elsif params[:book][:genre].empty? && params[:book][:genre_id].empty?
       @message = "Please add a genre to your new book addition."
       erb :'/book/new'
-    elsif !params[:book][:author].empty? && params[:book][:author_id] != nil
+    elsif !params[:bookA][:author].empty? && params[:book][:author_id] != nil
       @message = "Please fill in only one author."
       erb :'/book/new'
     elsif !params[:book][:genre].empty? && !params[:book][:genre_id] != nil
