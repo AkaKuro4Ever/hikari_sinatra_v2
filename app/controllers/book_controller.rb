@@ -4,6 +4,13 @@ configure do
   set :views, Proc.new { File.join(root, "../views/") }
 end
 
+
+  get '/books/books' do
+
+    @books = Book.all
+    erb :'/book/index'
+  end
+
   #CREATE
 
   get '/books/new' do
@@ -64,11 +71,6 @@ end
   end
 
   #READ
-  get '/books' do
-
-    @books = Book.all
-    erb :'/book/index'
-  end
 
   get '/books/:id' do
 

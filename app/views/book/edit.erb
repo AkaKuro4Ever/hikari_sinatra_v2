@@ -1,44 +1,54 @@
-<head><%@title = @book.title%></head>
+<html>
+  <head><%@title = @book.title%></head>
+  <body>
+  <h1>Updating <%=@book.title%></h1>
 
-<body>
-<h1>Updating <%=@book.title%></h1>
+    <form action="/books/<%= @book.id %>" method="post">
+  		<input id="hidden" type="hidden" name="_method" value="patch">
+  		New Title: <input type="text" name="book[title]" id="book_title" placeholder="<%=@book.title%>">
+      <br></br>
+      New Author: <input type="text" name="book[author]" id="book_title" placeholder="<%=@book.author.name%>">
+      <br></br>
+      New Genre: <input type="text" name="book[genre]" id="book_title" placeholder="<%=@book.genre.name%>">
 
-  <form action="/books/<%= @book.id %>" method="post">
-		<input id="hidden" type="hidden" name="_method" value="patch">
-		New Title: <input type="text" name="book[title]" id="book_title" value="<%=@book.title%>">
-    New Author: <input type="text" name="book[author]" id="book_title" value="<%=@book.author%>">
-    New Genre: <input type="text" name="book[genre]" id="book_title" value="<%=@book.genre%>">
+      <br></br>
 
-    <label>Choose an existing author:</label>
-    		 
-		  <br></br>
-		 
+      <label>Choose an existing author:</label>
+      		 
+  		<br></br>
+  		 
 		  <%Author.all.each do |author|%>
-		    <input type="radio" name="book[author_ids][]" id="<%= author.id%>" value="<%=author.id%>"<%=author.name%></input>
+		    <input type="radio" name="book[author_ids][]" id="<%= author.id%>" value="<%=author.id%>"><%=author.name%></input>
+        <br></br>
 		  <%end%>
-		 <!-- id is used for Capybara, value is what is sent through as data, name is what it's named in params -->
-		  <br></br>
-		 
-		  <label>and/or, add a new author:</label>
-		  <br></br>
-		  <label>Author:</label>
-		    <input  type="text" name="author[name]"></input>
-		  <br></br>
 
-      <label>Chooe an existing genre:</label>
+      <br></br>
+     
+      <label>and/or, add a new author:</label>
+      <br></br>
 
-      <br>
+      <label>Author:</label>
+        <input  type="text" name="author[name]"></input>
+      <br></br>
+
+      <label>Choose an existing genre:</label>
+
+      <br></br>
 
       <%Genre.all.each do |genre|%>
-        <input type="radio" name="book[genre_ids][]" value="<%=genre.id>"<%=genre.name%></input>
+        <input type="radio" name="book[genre_ids][]"  value="<%=genre.id%>"><%=genre.name%></input>
+      <br></br>
       <%end%>
 
-      <label>and/or, add a new genre: </label>
-      <br>
-      <label>Genre:</label>
-      <input type="text" name="genre[name]"></input>
-      <br>
+      <label>and/or, add a new genre:</label>
+      <br></br>
 
-    <button type="submit" value="Update Owner"></button>
-	</form>
-</body>
+      <label>Genre:</label>
+        <input  type="text" name="genre[name]"></input>
+      <br></br>
+  		 <!-- id is used for Capybara, value is what is sent through as data, name is what it's named in params-->
+
+      <button type="submit" value="Update Book">Update Book </button>
+  	</form>
+  </body>
+</html>
