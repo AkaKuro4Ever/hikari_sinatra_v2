@@ -16,26 +16,26 @@ end
     binding.pry
     @authors = Author.all
     @genres = Genre.all
-    if params[:book][:title].empty?
-      @message = "Please add a title to your new book addition."
-      erb :'/book/new'
-    elsif params[:book][:author].empty? && params[:book][:author_id].empty?
-      @message = "Please add an author to your new book addition."
-      erb :'/book/new'
-    elsif params[:book][:genre].empty? && params[:book][:genre_id].empty?
-      @message = "Please add a genre to your new book addition."
-      erb :'/book/new'
-    elsif !params[:bookA][:author].empty? && params[:book][:author_id] != nil
-      @message = "Please fill in only one author."
-      erb :'/book/new'
-    elsif !params[:book][:genre].empty? && !params[:book][:genre_id] != nil
-      @message = "Please fill in only one genre."
-      erb :'/book/new'
-    else
-      title = params[:book][:title].strip.split.map(&:capitalize).join('')
-      author = params[:book][:author].strip.split.map(&:capitalize).join('')
-      genre = params[:book][:genre].strip.split.map(&:capitalize).join('')
-    end
+    # if params[:book][:title].empty?
+    #   @message = "Please add a title to your new book addition."
+    #   erb :'/book/new'
+    # elsif params[:book][:author].empty? && params[:book][:author_id].empty?
+    #   @message = "Please add an author to your new book addition."
+    #   erb :'/book/new'
+    # elsif params[:book][:genre].empty? && params[:book][:genre_id].empty?
+    #   @message = "Please add a genre to your new book addition."
+    #   erb :'/book/new'
+    # elsif !params[:bookA][:author].empty? && params[:book][:author_id] != nil
+    #   @message = "Please fill in only one author."
+    #   erb :'/book/new'
+    # elsif !params[:book][:genre].empty? && !params[:book][:genre_id] != nil
+    #   @message = "Please fill in only one genre."
+    #   erb :'/book/new'
+    # else
+      title = params[:book][:title].strip.split.map(&:capitalize).join(' ')
+      author = params[:book][:author].strip.split.map(&:capitalize).join(' ')
+      genre = params[:book][:genre].strip.split.map(&:capitalize).join(' ')
+    # end
     @book = Book.new(title: title)
     if !params[:book][:author].empty?
       if @author = Author.all.find_by(name: params[:book][:author])
@@ -55,14 +55,12 @@ end
 		    @genre = Genre.create(name: genre)
         @genre.books << @book
       end
-		  @genre = Genre.create(name: genre)
-      @genre.books << @book
     else
       @genre = Genre.all.find_by(id: params[:book][:genre_id])
       @genre.books << @book
 		end
     @book.save
-    erb :'book/show'
+    redirect "/books/#{@book.id}"
   end
 
   #READ
