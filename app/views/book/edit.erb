@@ -13,17 +13,31 @@
     		 
 		  <br></br>
 		 
-		  <%Pet.all.each do |pet|%>
-		    <input type="checkbox" name="owner[pet_ids][]" id="<%= pet.id%>" value="<%=pet.id%>" <%='checked' if @owner.pets.include?(pet) %>><%=pet.name%></input>
+		  <%Author.all.each do |author|%>
+		    <input type="radio" name="book[author_ids][]" id="<%= author.id%>" value="<%=author.id%>"<%=author.name%></input>
 		  <%end%>
-		 
+		 <!-- id is used for Capybara, value is what is sent through as data, name is what it's named in params -->
 		  <br></br>
 		 
-		  <label>and/or, create a new pet:</label>
+		  <label>and/or, add a new author:</label>
 		  <br></br>
-		  <label>name:</label>
-		    <input  type="text" name="pet[name]" id="pet_name"></input>
+		  <label>Author:</label>
+		    <input  type="text" name="author[name]"></input>
 		  <br></br>
+
+      <label>Chooe an existing genre:</label>
+
+      <br>
+
+      <%Genre.all.each do |genre|%>
+        <input type="radio" name="book[genre_ids][]" value="<%=genre.id>"<%=genre.name%></input>
+      <%end%>
+
+      <label>and/or, add a new genre: </label>
+      <br>
+      <label>Genre:</label>
+      <input type="text" name="genre[name]"></input>
+      <br>
 
     <button type="submit" value="Update Owner"></button>
 	</form>
