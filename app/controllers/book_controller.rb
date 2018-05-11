@@ -8,27 +8,41 @@ end
 
   get '/books/new' do
     @authors = Author.all
+    @genres = Genre.all
     erb :'/book/new'
   end
 
   post '/books' do
     binding.pry
-    author = params[:book][:author].strip.split.map(&:capitalize).join('')
-    genre = params[:book][:genre].strip.split.map(&:capitalize).join('')
-    @book = Book.new(title: params[:book][:title])
-    if !Author.all.find_by(name: author)
-      @author = Author.new(name: author)
+    if params[:book][:title].empty?
+      @message = "Please add a title to your new book addition."
+      erb :'/book/new'
+    elsif params[:book][:author].empty? && params[:book][:author_id].empty?
+      @message = "Please add an author to your new book addition."
+      erb :'/book/new'
+    elsif params[:book][:genre].empty? && params[:book][:genre_id].empty?
+      @message = "Please add a genre to your new book addition."
+      erb :'/book/new'
+    else
+      title = params[:book][:title].strip.split.map(&:capitalize).join('')
+      author = params[:book][:author].strip.split.map(&:capitalize).join('')
+      genre = params[:book][:genre].strip.split.map(&:capitalize).join('')
+    end
+    @book = Book.new(title: title)
+    if !params[:book][:author].empty?
+		  @author = Author.create(name: author)
       @author.books << @book
-      @author.save
-    # else
-    #
-    #   @author.books << @book
-    end
-    if !Genre.all.include?(name: params[:genre])
-      @genre = Genre.new(name: params[:genre])
+    else
+      @author = Author.all.find_by(id: params[:book][:author_id])
+      @author.books << @book
+		end
+    if !params[:book][:genre].empty?
+		  @genre = Genre.create(name: genre)
       @genre.books << @book
-      @genre.save
-    end
+    else
+      @genre = Genre.all.find_by(id: params[:book][:genre_id])
+      @genre.books << @book
+		end
     @book.save
     erb :'book/show'
   end

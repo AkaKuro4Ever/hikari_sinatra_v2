@@ -1,16 +1,25 @@
 <%@title = "New Book"%>
 <h1> Adding a New Book </h1>
-
-<form method="post" action="/book">
+<%=@message%>
+<form method="post" action="/books">
   <p>Title <input type="text" name="book[title]"></p>
   <p>Author <input type="text" name="book[author]"></p>
   <p>Genre <input type="text" name="book[genre]"></p>
 
-Or Choose an Existing Author
-
+Or Choose an Existing Author:
+<br>
+<br>
   <%@authors.each do |author|%>
-        <input type="checkbox" name="book[author_ids][]" value="<%=author.id%>" id="<%=author.id%>"><%=author.name%></input>
+        <input type="radio" name="book[author_id]" value="<%=author.id%>" id="<%=author.id%>"><%=author.name%></input>
+        <br>
     <%end%>
+<br>
 
+<br>
+  <%@genres.each do |genre|%>
+        <input type="radio" name="book[genre_id]" value="<%=genre.id%>" id="<%=genre.id%>"><%=genre.name%></input>
+        <br>
+    <%end%>
+<br>
   <button type="submit" value="submit">Submit</button>
 </form>
