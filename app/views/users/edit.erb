@@ -1,0 +1,24 @@
+<html>
+  <head><%@title = @book.title%></head>
+  <body>
+  <h1>Turn Books In</h1>
+
+  <%if logged_in? && current_user == @user%>
+    <form method="post" action="/users/<%=@user.id%>">
+      <input id="hidden" type="hidden" name="_method" value="patch">
+		  <%@user.books.each do |book|%>
+
+		    <input type="checkbox" name="book_ids[]" id="<%= book.id%>" value="<%=book.id%>">
+        <%if book.title !=nil%>
+          <%=book.name%>
+        <%end%>
+        </input>
+        <br></br>
+		  <%end%>
+      <button type="submit" value="Update Book">Update Book </button>
+  	</form>
+  <%else%>
+    Sorry, you are not logged in to make changes to this account. Please sign in and try again.
+  <%end%>
+  </body>
+</html>
