@@ -1,8 +1,6 @@
 class UserController < Sinatra::Base
 
   configure do
-    enable :sessions
-    set :sessions_secret, "secret"
     set :views, Proc.new { File.join(root, "../views/") }
   end
 
