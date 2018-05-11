@@ -5,10 +5,26 @@
 
   <form action="/books/<%= @book.id %>" method="post">
 		<input id="hidden" type="hidden" name="_method" value="patch">
-		New Title: <input type="text" name="title">
-    New Author: <input type="text" name="author">
-    New Genre: <input type="text" name="genre">
+		New Title: <input type="text" name="book[title]" id="book_title" value="<%=@book.title%>">
+    New Author: <input type="text" name="book[author]" id="book_title" value="<%=@book.author%>">
+    New Genre: <input type="text" name="book[genre]" id="book_title" value="<%=@book.genre%>">
 
-    <button type="submit">Submit</button>
+    <label>Choose an existing author:</label>
+    		 
+		  <br></br>
+		 
+		  <%Pet.all.each do |pet|%>
+		    <input type="checkbox" name="owner[pet_ids][]" id="<%= pet.id%>" value="<%=pet.id%>" <%='checked' if @owner.pets.include?(pet) %>><%=pet.name%></input>
+		  <%end%>
+		 
+		  <br></br>
+		 
+		  <label>and/or, create a new pet:</label>
+		  <br></br>
+		  <label>name:</label>
+		    <input  type="text" name="pet[name]" id="pet_name"></input>
+		  <br></br>
+
+    <button type="submit" value="Update Owner"></button>
 	</form>
 </body>
