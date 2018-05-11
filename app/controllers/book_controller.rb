@@ -14,6 +14,8 @@ end
 
   post '/books' do
     binding.pry
+    @authors = Author.all
+    @genres = Genre.all
     if params[:book][:title].empty?
       @message = "Please add a title to your new book addition."
       erb :'/book/new'
@@ -23,6 +25,12 @@ end
     elsif params[:book][:genre].empty? && params[:book][:genre_id].empty?
       @message = "Please add a genre to your new book addition."
       erb :'/book/new'
+    elsif !params[:book][:author].empty? && params[:book][:author_id] != nil
+      @message = "Please fill in only one author."
+      erb :'/book/new'
+    elsif !params[:book][:genre].empty? && !params[:book][:genre_id] != nil
+      @message = "Please fill in only one genre."
+      erb :'/book/new'
     else
       title = params[:book][:title].strip.split.map(&:capitalize).join('')
       author = params[:book][:author].strip.split.map(&:capitalize).join('')
@@ -30,13 +38,23 @@ end
     end
     @book = Book.new(title: title)
     if !params[:book][:author].empty?
-		  @author = Author.create(name: author)
-      @author.books << @book
+      if @author = Author.all.find_by(name: params[:book][:author])
+        @author.books << @book
+      else
+		    @author = Author.create(name: author)
+        @author.books << @book
+      end
     else
       @author = Author.all.find_by(id: params[:book][:author_id])
       @author.books << @book
 		end
     if !params[:book][:genre].empty?
+      if @genre = Genre.all.find_by(name: params[:book][:genre])
+        @genre.books << @book
+      else
+		    @genre = Genre.create(name: genre)
+        @genre.books << @book
+      end
 		  @genre = Genre.create(name: genre)
       @genre.books << @book
     else
