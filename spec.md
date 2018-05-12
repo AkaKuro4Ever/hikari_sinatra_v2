@@ -7,7 +7,7 @@ Specs:
 - [X] Include at least one has_many relationship on your User model (x has_many y, e.g. User has_many Posts)
 - [X] Include at least one belongs_to relationship on another model (x belongs_to y, e.g. Post belongs_to User)
 - [X] Include user accounts
-- [ ] Ensure that users can't modify content created by other users
+- [X] Ensure that users can't modify content created by other users
 - [X] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying
 - [ ] Include user input validations
 - [ ] Display validation failures to user with error message (example form URL e.g. /posts/new)

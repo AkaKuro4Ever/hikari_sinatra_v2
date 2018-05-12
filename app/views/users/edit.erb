@@ -2,9 +2,10 @@
   <head><%@title = "Book Turn In"%></head>
   <body>
   <h1>Turn Books In</h1>
+  <%binding.pry%>
 
   <%if logged_in? && current_user == @user%>
-    <form method="post" action="/books/<%=@book.id%>">
+    <form method="post" action="/users/<%=@users.id%>">
       <input id="hidden" type="hidden" name="_method" value="patch">
 		  <%@user.books.each do |book|%>
 

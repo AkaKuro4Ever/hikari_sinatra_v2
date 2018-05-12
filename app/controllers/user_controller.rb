@@ -11,6 +11,7 @@ class UserController < ApplicationController
     erb :'/users/login'
   end
 
+  #CREATE
   get '/signup' do
 
     erb :'/users/signup'
@@ -54,20 +55,34 @@ class UserController < ApplicationController
     redirect "/"
   end
 
+  #READ
   get '/users/:id' do
 
     @user = User.find_by(id: params[:id])
     erb :'/users/show'
   end
 
+  #UPDATE
   get '/users/:id/edit' do
 
     @user = User.find_by(id: params[:id])
+    @bo
     erb :'/users/edit'
+  end
+
+  patch '/users/:id' do
+
+    @user = User.find_by(id: params[:id])
+    binding.pry
+    @user.books.find_by(id: params[:book_ids]).delete
+    # @user.books.where(category: ['Something', 'Else']).delete_all
+    # @user.books.where(id: params[:book_ids]).destroy_all
   end
 
   get '/:username' do
     @session = session
     #Because we enabled sessions in our app, every controller action has access to the session hash.
   end
+
+  #DELETE
 end
