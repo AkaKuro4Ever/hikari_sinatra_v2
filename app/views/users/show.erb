@@ -26,9 +26,11 @@
     <a href="/logout">Logout</a>
     <!--You cannot use the below b/c the session has been cleared of user_id fvield. Redirecting there is the same as refreshing the page and simply going to that location. Think about more when you review the 2 helper methods.-->
   <%elsif logged_in?%>
-  Sorry, you are not logged in to see this account. If you think it is your account, please log out and sign back in.
-  <a href="/logout">Logout as <%=@user.name%></a>
+    Sorry, you are not logged in to see this account. If you think it is your account, please log out and sign back in.
+    <%binding.pry%>
+    <br></br>
+    <a href="/logout">Logout from <%=current_user.username%>'s account</a>
   <%else%>
-  Sorry, you are not logged in to see this account. Please log in now.
-  <a href="/login">Login</a>
+    Sorry, you are not logged in to see this account. Please log in now.
+    <a href="/login">Login</a>
 <%end%>
