@@ -1,3 +1,4 @@
+<%binding.pry%>
 <%if logged_in? && current_user == @user%>
 
   Welcome, <%=@user.username.capitalize%>!
@@ -5,10 +6,11 @@
   <h3>Currently Checked Out</h3>
     <%book_list = @user.books.find_all {|book| book if book.title !=nil}%>
     <%if book_list.empty?%>
-    You currently have no books checked out.
+    You currently have no books checked out. Check some books out now!
+    <br></br>
+    <a href="/books/books">Library Catalogue</a>
     <%else%>
       <%book_list.each_with_index do |book, i|%>
-        <%binding.pry%>
         <h3><%=i+1%>. <%=book.title%></h3>
         <%if book.author.name !=nil%>
         Author: <%book.author.name%>
@@ -27,7 +29,6 @@
     <!--You cannot use the below b/c the session has been cleared of user_id fvield. Redirecting there is the same as refreshing the page and simply going to that location. Think about more when you review the 2 helper methods.-->
   <%elsif logged_in?%>
     Sorry, you are not logged in to see this account. If you think it is your account, please log out and sign back in.
-    <%binding.pry%>
     <br></br>
     <a href="/logout">Logout from <%=current_user.username%>'s account</a>
   <%else%>

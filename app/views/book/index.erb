@@ -6,7 +6,6 @@
   <body>
     <%book_list = @books.find_all {|book| book if book.title !=nil}%>
     <%book_list.each_with_index do |book, i|%>
-      <%binding.pry%>
       <h3><%=i+1%>. <%=book.title%></h3>
       <%if book.author.name !=nil%>
       Author: <%book.author.name%>
@@ -14,6 +13,7 @@
       <%if book.genre.name !=nil%>
       Genre: <%book.genre.name%>
       <%end%>
+      <a href="/books/<%=book.id%>">more information</a>
     <%end%>
   </body>
 </html>

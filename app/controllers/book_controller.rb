@@ -79,6 +79,19 @@ end
   end
 
   #UPDATE
+
+  get '/books/:id/add' do
+    @book = Book.find_by(id: params[:id])
+    if logged_in?
+      current_user.books << @book
+      @user = current_user
+      erb :'/users/show'
+    else
+      @message = "Please log in to check this book out."
+      erb :'/books/show'
+    end
+  end
+
   get '/books/:id/edit' do
 
     @book = Book.find_by(id: params[:id])
