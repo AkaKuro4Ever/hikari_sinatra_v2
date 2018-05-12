@@ -66,10 +66,6 @@ class UserController < ApplicationController
     erb :'/users/edit'
   end
 
-  patch '/users/:id' do
-
-  end
-
   get '/:username' do
     @session = session
     #Because we enabled sessions in our app, every controller action has access to the session hash.

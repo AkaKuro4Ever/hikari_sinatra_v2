@@ -97,6 +97,18 @@ end
     end
   end
 
+  patch '/books/:id/delete' do
+
+    @book = Book.find_by(id: params[:id])
+    if logged_in?
+      current_user.books.delete(@book)
+      redirect to "users/#{current_user.id}"
+    else
+      @message = "Please log in to return this book."
+      erb :'/books/show'
+    end
+  end
+
   get '/books/:id/edit' do
 
     @book = Book.find_by(id: params[:id])
