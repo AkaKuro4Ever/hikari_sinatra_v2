@@ -9,29 +9,20 @@
       <br></br>
       New Author: <input type="text" name="book[author]" id="book_title" placeholder="<%=@book.author.name%>">
       <br></br>
+      <label>Or choose an existing author:</label>
+           
+      <br></br>
+       
+      <%Author.all.each do |author|%>
+        <input type="radio" name="book[author_ids][]" id="<%= author.id%>" value="<%=author.id%>"><%=author.name%></input>
+        <br></br>
+      <%end%>
+
       New Genre: <input type="text" name="book[genre]" id="book_title" placeholder="<%=@book.genre.name%>">
 
       <br></br>
 
-      <label>Choose an existing author:</label>
-      		 
-  		<br></br>
-  		 
-		  <%Author.all.each do |author|%>
-		    <input type="radio" name="book[author_ids][]" id="<%= author.id%>" value="<%=author.id%>"><%=author.name%></input>
-        <br></br>
-		  <%end%>
-
-      <br></br>
-     
-      <label>and/or, add a new author:</label>
-      <br></br>
-
-      <label>Author:</label>
-        <input  type="text" name="author[name]"></input>
-      <br></br>
-
-      <label>Choose an existing genre:</label>
+      <label>Or choose an existing genre:</label>
 
       <br></br>
 
@@ -40,12 +31,6 @@
       <br></br>
       <%end%>
 
-      <label>and/or, add a new genre:</label>
-      <br></br>
-
-      <label>Genre:</label>
-        <input  type="text" name="genre[name]"></input>
-      <br></br>
   		 <!-- id is used for Capybara, value is what is sent through as data, name is what it's named in params-->
 
       <button type="submit" value="Update Book">Update Book </button>

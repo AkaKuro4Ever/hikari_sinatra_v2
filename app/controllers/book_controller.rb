@@ -97,7 +97,7 @@ end
     end
   end
 
-  patch '/books/:id/delete' do
+  get '/books/:id/delete' do
 
     @book = Book.find_by(id: params[:id])
     if logged_in?

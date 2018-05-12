@@ -5,7 +5,7 @@
   <%binding.pry%>
 
   <%if logged_in? && current_user == @user%>
-    <form method="post" action="/users/<%=@users.id%>">
+    <form method="post" action="/users/<%=@user.id%>">
       <input id="hidden" type="hidden" name="_method" value="patch">
 		  <%@user.books.each do |book|%>
 
