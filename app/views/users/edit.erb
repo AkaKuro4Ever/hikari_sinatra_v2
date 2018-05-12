@@ -1,5 +1,5 @@
 <html>
-  <head><%@title = @book.title%></head>
+  <head><%@title = "Book Turn In"%></head>
   <body>
   <h1>Turn Books In</h1>
 
@@ -10,7 +10,7 @@
 
 		    <input type="checkbox" name="book_ids[]" id="<%= book.id%>" value="<%=book.id%>">
         <%if book.title !=nil%>
-          <%=book.name%>
+          <%=book.title%>
         <%end%>
         </input>
         <br></br>

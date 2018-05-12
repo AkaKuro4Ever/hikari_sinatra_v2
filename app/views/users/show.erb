@@ -1,4 +1,3 @@
-<%binding.pry%>
 <%if logged_in? && current_user == @user%>
 
   Welcome, <%=@user.username.capitalize%>!
@@ -20,7 +19,7 @@
         <%end%>
         <br></br>
       <%end%>
-      <a href="/user/edit">Turn In Books</a>
+      <a href="/users/<%=@user.id%>/edit">Turn In Books</a>
     <%end%>
 
 

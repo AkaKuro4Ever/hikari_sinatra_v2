@@ -83,9 +83,14 @@ end
   get '/books/:id/add' do
     @book = Book.find_by(id: params[:id])
     if logged_in?
-      current_user.books << @book
-      @user = current_user
-      erb :'/users/show'
+      if current_user.books.include?(@book)
+        @message = "You've already checked this book out!"
+        erb :'/books/show'
+      else
+        current_user.books << @book
+        @user = current_user
+        erb :'/users/show'
+      end
     else
       @message = "Please log in to check this book out."
       erb :'/books/show'
