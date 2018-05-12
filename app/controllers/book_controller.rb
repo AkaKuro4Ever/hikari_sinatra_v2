@@ -1,4 +1,4 @@
-class BookController < Sinatra::Base
+class BookController < ApplicationController
 require 'pry'
 configure do
   set :views, Proc.new { File.join(root, "../views/") }

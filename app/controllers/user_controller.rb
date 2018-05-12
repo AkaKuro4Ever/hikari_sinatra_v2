@@ -1,4 +1,4 @@
-class UserController < Sinatra::Base
+class UserController < ApplicationController
 
   configure do
     set :views, Proc.new { File.join(root, "../views/") }
@@ -23,7 +23,7 @@ class UserController < Sinatra::Base
       @message = "All fields must be filled in to create a user account" #CHANGE TO FLASH LATER
       erb :'users/signup'
     else
-    @user = User.new(email: params[:email], username: params[:username], password: params[:password])
+    @user = User.new(email: params[:email], username: params[:username].capitalize, password: params[:password])
     # Because our user has has_secure_password, we won't be able to save this to the database unless our user filled out the password field. Calling user.save will return false if the user can't be persisted.
     #MUST DO VALIDATION FOR UNIQUE PASSWORDS, EMAILS, USERNAMES
       if @user.save
