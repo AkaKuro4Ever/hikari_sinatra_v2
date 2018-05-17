@@ -2,7 +2,6 @@
   <head><%@title = "Book Turn In"%></head>
   <body>
   <h1>Turn Books In</h1>
-  <%binding.pry%>
 
   <%if logged_in? && current_user == @user%>
     <form method="post" action="/users/<%=@user.id%>">

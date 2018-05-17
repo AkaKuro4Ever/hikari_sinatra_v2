@@ -4,8 +4,13 @@
   </head>
 
   <body>
-      Welcome to the Hogwarts School of Witchcraft and Wizardry Library!
+    <%if current_user%>
+      Welcome back, <%=current_user.username%>, to the Hogwarts School of Witchcraft and Wizardry Library!
       <br></br>
-      <a href="/login">Log in</a> or <a href="/signup">Sign Up</a> to your school account.
+      <a href="/users/<%=current_user.id%>">My Profile</a>
+    <%else%>
+      Welcome to the Hogwarts School of Witchcraft and Wizardry Library!
+    <a href="/login">Log in</a> or <a href="/signup">Sign Up</a> to your school account.
+    <%end%>
   </body>
 </html>

@@ -74,7 +74,13 @@ class UserController < ApplicationController
 
     @user = User.find_by(id: params[:id])
     binding.pry
-    @user.books.find_by(id: params[:book_ids]).delete
+    params[:book_ids].each do |id|
+      if  book = @user.books.find_by(id: id)
+        @user.books.delete(book)
+      end
+    end
+
+    redirect "/users/#{@user.id}"
     # @user.books.where(category: ['Something', 'Else']).delete_all
     # @user.books.where(id: params[:book_ids]).destroy_all
   end
