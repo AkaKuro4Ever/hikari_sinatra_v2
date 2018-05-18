@@ -85,7 +85,7 @@ end
     if logged_in?
       if current_user.books.include?(@book)
         @message = "You've already checked this book out!"
-        erb :'/books/show'
+        erb :'/book/show'
       else
         current_user.books << @book
         @user = current_user
@@ -93,7 +93,7 @@ end
       end
     else
       @message = "Please log in to check this book out."
-      erb :'/books/show'
+      erb :'/book/show'
     end
   end
 
@@ -105,7 +105,7 @@ end
       redirect to "users/#{current_user.id}"
     else
       @message = "Please log in to return this book."
-      erb :'/books/show'
+      erb :'/book/show'
     end
   end
 

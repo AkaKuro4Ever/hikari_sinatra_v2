@@ -23,9 +23,5 @@ Genre: <%if @book.genre.name !=nil%>
     <a href="/books/<%=@book.id%>/add">Check Book Out</a>
   <%end%>
 <%end%>
-
+  <br></br>
 <%=@message%>
-  <br>
-<%if @message != nil%>
-  <a href="/login">Login</a>
-<%end%>

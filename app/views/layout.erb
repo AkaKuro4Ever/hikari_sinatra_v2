@@ -7,17 +7,28 @@
     <%else%>
       Hikari
     <%end%>
+
     </title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/style.css">-->
+    <style>
+
+      <link rel="stylesheet" href="style.css" type="text/css" />
+    </style>
   </head>
   <body>
-    <%if !logged_in?%>
-    <a href="/login">Login</a>
-    <%else%>
-    Hello, <%=current_user.username%>
-    <a href="/logout">Sign Out</a>
-    <%end%>
+    <p class="main-header">
+      <%if !logged_in?%>
+        <a href="/login">Login</a>
+        <br></br>
+        <a href="/books/books">Library Collection</a>
+      <%else%>
+        Hello, <%=current_user.username%>
+        <a href="/logout">Sign Out</a>
+        <br></br>
+        <a href="/books/books">Library Collection</a>
+      <%end%>
+    </p>
     <%=yield%>
     <!--<div class="container">
 		      <h1>I love cats</h1>
