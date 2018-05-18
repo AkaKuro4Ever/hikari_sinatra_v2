@@ -40,6 +40,9 @@
 
     If this book no longer is part of the library's collection, you can delete it from the database below:
     <br></br>
-    <a href="/books/<%@book.id%>">Delete Book</a>
+    <form method="post" action="/books/<%= @book.id %>/delete">
+		  <input id="hidden" type="hidden" name="_method" value="DELETE">
+		  <input type="submit" value="Delete">
+		</form>
   </body>
 </html>

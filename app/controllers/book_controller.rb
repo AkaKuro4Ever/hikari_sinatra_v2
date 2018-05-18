@@ -174,9 +174,15 @@ end
   end
 
   #DELETE
-  delete '/books/:id' do
+  delete '/books/:id/delete' do
 
-    @book = Book.find_by(id: params[:id])
-    redirect '/book/index'
+    if logged_in?
+      @book = Book.find_by(id: params[:id])
+      @book.destroy
+      redirect '/books/books'
+    else
+      @message = "Please log in to be able to delete this manga."
+      erb :'/book/show'
+    end
   end
 end
