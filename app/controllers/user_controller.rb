@@ -59,6 +59,7 @@ class UserController < ApplicationController
   get '/users/:id' do
 
     @user = User.find_by(id: params[:id])
+
     erb :'/users/show'
   end
 
@@ -66,7 +67,7 @@ class UserController < ApplicationController
   get '/users/:id/edit' do
 
     @user = User.find_by(id: params[:id])
-    @bo
+
     erb :'/users/edit'
   end
 

@@ -1,33 +1,35 @@
 <html>
   <head><%@title = @book.title%></head>
   <body>
+    <%=@message%>
   <h1>Updating <%=@book.title%></h1>
 
     <form action="/books/<%= @book.id %>" method="post">
   		<input id="hidden" type="hidden" name="_method" value="patch">
-  		New Title: <input type="text" name="book[title]" id="book_title" placeholder="<%=@book.title%>">
+  		New Title: <input type="text" name="book[title]" placeholder="<%=@book.title%>">
       <br></br>
-      New Author: <input type="text" name="book[author]" id="book_title" placeholder="<%=@book.author.name%>">
+      New Author: <input type="text" name="book[author]" placeholder="<%=@book.author.name%>">
       <br></br>
       <label>Or choose an existing author:</label>
-           
+      <%array_1 = Author.all - Array(@book.author)%>     
       <br></br>
-       
-      <%Author.all.each do |author|%>
-        <input type="radio" name="book[author_ids][]" id="<%= author.id%>" value="<%=author.id%>"><%=author.name%></input>
+      <%array_1.each do |author|%>
+          <input type="radio" name="book[author_id]" id="<%= author.id%>" value="<%=author.id%>">
+            <%=author.name%>
+          </input>
         <br></br>
       <%end%>
 
-      New Genre: <input type="text" name="book[genre]" id="book_title" placeholder="<%=@book.genre.name%>">
+      New Genre: <input type="text" name="book[genre]" placeholder="<%=@book.genre.name%>">
 
       <br></br>
 
       <label>Or choose an existing genre:</label>
 
       <br></br>
-
-      <%Genre.all.each do |genre|%>
-        <input type="radio" name="book[genre_ids][]"  value="<%=genre.id%>"><%=genre.name%></input>
+      <%array_2 = Genre.all - Array(@book.genre)%>
+      <%array_2.each do |genre|%>
+        <input type="radio" name="book[genre_id]"  value="<%=genre.id%>"><%=genre.name%></input>
       <br></br>
       <%end%>
 
@@ -35,5 +37,9 @@
 
       <button type="submit" value="Update Book">Update Book </button>
   	</form>
+
+    If this book no longer is part of the library's collection, you can delete it from the database below:
+    <br></br>
+    <a href="/books/<%@book.id%>">Delete Book</a>
   </body>
 </html>

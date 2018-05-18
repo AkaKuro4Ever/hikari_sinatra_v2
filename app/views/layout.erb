@@ -12,6 +12,12 @@
         <link rel="stylesheet" href="/css/style.css">-->
   </head>
   <body>
+    <%if !logged_in?%>
+    <a href="/login">Login</a>
+    <%else%>
+    Hello, <%=current_user.username%>
+    <a href="/logout">Sign Out</a>
+    <%end%>
     <%=yield%>
     <!--<div class="container">
 		      <h1>I love cats</h1>

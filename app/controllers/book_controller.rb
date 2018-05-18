@@ -15,14 +15,14 @@ end
 
   get '/books/new' do
     @authors = Author.all
-    @genres = Genre.all
+    @genre = Genre.all
     erb :'/book/new'
   end
 
   post '/books' do
     binding.pry
     @authors = Author.all
-    @genres = Genre.all
+    @genre = Genre.all
     # if params[:book][:title].empty?
     #   @message = "Please add a title to your new book addition."
     #   erb :'/book/new'
@@ -112,27 +112,64 @@ end
   get '/books/:id/edit' do
 
     @book = Book.find_by(id: params[:id])
-    erb :'/book/edit'
+    if !logged_in?
+      @message = "Sorry, to edit book information, you must be logged in. Please log in now."
+
+      erb :'/book/show'
+    else
+      erb :'/book/edit'
+    end
   end
 
   patch '/books/:id' do
 
     @book = Book.find_by(id: params[:id])
-    if params[:title] != nil
-      Book.update(title: params[:title])
+    author = params[:book][:author].strip.split.map(&:capitalize).join(' ')
+    genre = params[:book][:genre].strip.split.map(&:capitalize).join(' ')
+    #Updates title if title box is filled out
+    if params[:book][:title] != ""
+      @book.title = params[:book][:title].split.map(&:capitalize).join(' ')
     end
-    if author = Author.find_by(name: params[:author])
-      Book.update(author: author)
+    #If both are authors filled, redirects
+    if author != "" && params[:book][:author_id] != nil
+      redirect :"/books/#{@book.id}/edit"
+    #If top is filled out, but author exists, it assigns existing author
+    elsif author != "" && Author.check(author)
+      @book.author = Author.find_by(name: author)
+    #If top is filled out and author doesn't exist, it assigns top
+    elsif author != ""
+      @book.author = Author.create(name: author)
     else
-      Book.update(author: Author.create(name: params[:author]))
+      nil
+    #If top isn't filled out, it assigns bottom
     end
 
-    if genre = Genre.find_by(name: params[:genre])
-      Book.update(genre: genre)
+    if params[:book][:author_id] != nil
+      @book.author = Author.find_by(id: params[:book][:author_id])
+    end
+    #GENRE --------
+    #If both are genres filled, redirects
+    binding.pry
+    if params[:book][:genre_id] != nil && genre != ""
+        redirect :"/books/#{@book.id}/edit"
+    end
+    #If top is filled out, but genre exists, it assigns existing genre
+    if genre != "" && Genre.check(genre)
+      @genre = Genre.all.find_by(name: genre)
+      @genre.books << @book
+    #If top is filled out and genre doesn't exist, it assigns top
+    elsif genre != ""
+      @genre = Genre.create(name: genre)
+      @genre.books << @book
+    #No matter what, it assigns bottom
     else
-      Book.update(genre: Genre.create(name: params[:genre]))
+    end
+    if params[:book][:genre_id] != nil
+      @genre = Genre.all.find_by(id: params[:book][:genre_id])
+      @genre.books << @book
     end
 
+    @book.save
     erb :'/book/show'
   end
 

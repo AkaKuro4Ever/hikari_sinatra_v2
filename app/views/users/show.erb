@@ -8,6 +8,7 @@
     You currently have no books checked out. Check some books out now!
     <br></br>
     <a href="/books/books">Library Catalogue</a>
+
     <%else%>
       <%book_list.each_with_index do |book, i|%>
         <h3><%=i+1%>. <%=book.title%></h3>
@@ -18,7 +19,7 @@
         Genre: <%book.genre.name%>
         <%end%>
         <br></br>
-      <%end%>
+        <%end%>
       <a href="/users/<%=@user.id%>/edit">Turn In Books</a>
     <%end%>
 
